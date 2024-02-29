@@ -23,9 +23,6 @@ namespace SeniorProjectGroup4
         {
             InitializeComponent();
             Console.WriteLine("Hello World!");
-
-
-
         }
 
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
@@ -48,6 +45,16 @@ namespace SeniorProjectGroup4
                 string folderNameOnly = dialog.SafeFolderName;
                 UserPrompt.Text = fullPathToFolder;
             }
+        }
+
+        private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
