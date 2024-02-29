@@ -23,7 +23,7 @@ namespace SeniorProjectGroup4
             InitializeComponent();
             Console.WriteLine("Hello World!");
 
-            DownloadTextBlock.Text = "Hello World!";
+            //DownloadTextBlock.Text = "Hello World!";
         }
     }
 }

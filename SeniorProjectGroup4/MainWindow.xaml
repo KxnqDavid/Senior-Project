@@ -7,8 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock x:Name="DownloadTextBlock" HorizontalAlignment="Left" Margin="255,323,0,0" TextWrapping="Wrap" Text="Download Video!" VerticalAlignment="Top"/>
-        <TextBlock x:Name="TestTextblock" HorizontalAlignment="Left" Margin="470,339,0,0" TextWrapping="Wrap" Text="This should be a textblock" VerticalAlignment="Top"/>
+        <TextBlock x:Name="GUIOutput" HorizontalAlignment="Center" Margin="0,399,0,0" TextWrapping="Wrap" Text="This textblock will display download %, error, and success message" VerticalAlignment="Top" Width="450"/>
+        <TextBlock x:Name="UserPrompt" HorizontalAlignment="Center" Margin="0,70,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here" VerticalAlignment="Top"/>
+        <TextBox x:Name="UserLink" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272">
+            <TextBox.Effect>
+                <DropShadowEffect/>
+            </TextBox.Effect>
+        </TextBox>
+        <Button x:Name="DLButton" Content="DOWNLOAD" HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="VidFormat" Content="Video Options" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="AudioFormat" Content="Audio Options" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="150" Margin="50,160,0,0" VerticalAlignment="Top" Width="250"/>
 
     </Grid>
 </Window>
