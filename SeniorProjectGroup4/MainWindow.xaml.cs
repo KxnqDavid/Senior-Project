@@ -23,7 +23,6 @@ namespace SeniorProjectGroup4
         {
             InitializeComponent();
             Console.WriteLine("Hello World!");
-            UserPrompt.Text = fullPathToFolder;
 
 
 
@@ -34,7 +33,7 @@ namespace SeniorProjectGroup4
             Microsoft.Win32.OpenFolderDialog dialog = new()
             {
                 Multiselect = false,
-                Title = "Select a folder"
+                Title = "Select a directory to download to"
             };
 
             // Show open folder dialog box
@@ -47,6 +46,7 @@ namespace SeniorProjectGroup4
                 string folderName = dialog.FolderName;
                 string fullPathToFolder = folderName;
                 string folderNameOnly = dialog.SafeFolderName;
+                UserPrompt.Text = fullPathToFolder;
             }
         }
     }
