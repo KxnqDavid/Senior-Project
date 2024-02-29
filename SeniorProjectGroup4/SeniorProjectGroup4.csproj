@@ -9,11 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="baby.png" />
     <None Remove="yt-dlp.exe" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="yt-dlp.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="baby.png" />
   </ItemGroup>
 
 </Project>
