@@ -9,6 +9,7 @@
     <Grid>
         <Label x:Name="Label1" Content="Hello" HorizontalAlignment="Left" Height="58" Margin="246,206,0,0" VerticalAlignment="Top" Width="203"/>
         <TextBlock HorizontalAlignment="Left" Margin="255,323,0,0" TextWrapping="Wrap" Text="Download Video!" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="470,339,0,0" TextWrapping="Wrap" Text="This should be a textblock" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
