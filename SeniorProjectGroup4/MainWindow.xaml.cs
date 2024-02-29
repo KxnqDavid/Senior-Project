@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using Microsoft.Win32;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -20,19 +21,33 @@ namespace SeniorProjectGroup4
     {
         public MainWindow()
         {
+            InitializeComponent();
             Console.WriteLine("Hello World!");
-            //hello
+            UserPrompt.Text = fullPathToFolder;
+
 
 
         }
-        private void ChangeDirectory_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
         {
+            Microsoft.Win32.OpenFolderDialog dialog = new()
+            {
+                Multiselect = false,
+                Title = "Select a folder"
+            };
 
+            // Show open folder dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process open folder dialog box results
+            if (result == true)
+            {
+                // Get the selected folder
+                string folderName = dialog.FolderName;
+                string fullPathToFolder = folderName;
+                string folderNameOnly = dialog.SafeFolderName;
+            }
         }
     }
 }
