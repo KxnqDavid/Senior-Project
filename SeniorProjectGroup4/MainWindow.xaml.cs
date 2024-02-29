@@ -19,10 +19,11 @@ namespace SeniorProjectGroup4
     /// </summary>
     public partial class MainWindow : Window
     {
+        string userDir = "";
+
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine("Hello World!");
         }
 
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
@@ -40,10 +41,7 @@ namespace SeniorProjectGroup4
             if (result == true)
             {
                 // Get the selected folder
-                string folderName = dialog.FolderName;
-                string fullPathToFolder = folderName;
-                string folderNameOnly = dialog.SafeFolderName;
-                UserPrompt.Text = fullPathToFolder;
+                userDir = dialog.FolderName;
             }
         }
 
