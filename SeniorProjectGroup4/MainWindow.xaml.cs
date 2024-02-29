@@ -29,11 +29,6 @@ namespace SeniorProjectGroup4
 
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFolderDialog dialog = new()
