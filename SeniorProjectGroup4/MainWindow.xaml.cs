@@ -19,6 +19,7 @@ namespace SeniorProjectGroup4
         public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine("Hello World!");
         }
     }
 }
