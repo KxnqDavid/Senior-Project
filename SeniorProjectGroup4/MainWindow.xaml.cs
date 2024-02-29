@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System;
+using System.Diagnostics;
 
 namespace SeniorProjectGroup4
 {
@@ -20,6 +22,8 @@ namespace SeniorProjectGroup4
         {
             InitializeComponent();
             Console.WriteLine("Hello World!");
+            
+
         }
     }
 }
