@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Windows;
-using Microsoft.Windows.Compatibility;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -27,13 +26,7 @@ namespace SeniorProjectGroup4
         }
         private void ChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-
-            DialogResult result = folderBrowserDialog.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
-            {
-                string selectedFolderPath = folderBrowserDialog.SelectedPath;
-            }
+          
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
