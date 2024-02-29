@@ -21,13 +21,29 @@ namespace SeniorProjectGroup4
         public MainWindow()
         {
             Console.WriteLine("Hello World!");
-            //hello
+            
 
 
         }
         private void ChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
-          
+            // Configure open folder dialog box
+            Microsoft.Win32.OpenFolderDialog dialog = new();
+
+            dialog.Multiselect = false;
+            dialog.Title = "Select a folder";
+
+            // Show open folder dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process open folder dialog box results
+            if (result == true)
+            {
+                // Get the selected folder
+                string fullPathToFolder = dialog.FolderName;
+                string folderNameOnly = dialog.SafeFolderName;
+            }
+            UserPrompt.Text = dialog.FolderName;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
