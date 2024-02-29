@@ -60,13 +60,13 @@ namespace SeniorProjectGroup4
         {
             mediaLink = UserLink.Text;
         }
-        static void downloadVideo(string link, string directory, string format)
+        static void DownloadVideo(string link, string directory, string format)
         {
             string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
             RunYTDLProcess(arguments);
         }
 
-        static void downloadAudio(string link, string directory, string format)
+        static void DownloadAudio(string link, string directory, string format)
         {
             string arguments = $"--extract-audio --audio-format {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
             RunYTDLProcess(arguments);
@@ -77,7 +77,7 @@ namespace SeniorProjectGroup4
             {
                 string ytDlpExecutable = "yt-dlp.exe";
 
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new()
                 {
                     FileName = ytDlpExecutable,
                     Arguments = arguments,
@@ -87,22 +87,20 @@ namespace SeniorProjectGroup4
                     CreateNoWindow = true
                 };
 
-                using (Process process = new Process())
-                {
-                    process.StartInfo = startInfo;
+                using Process process = new();
+                process.StartInfo = startInfo;
 
-                    process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                    process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
 
-                    process.Start();
+                process.Start();
 
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
 
-                    process.WaitForExit();
+                process.WaitForExit();
 
-                    Console.WriteLine("Download complete!");
-                }
+                Console.WriteLine("Download complete!");
             }
             catch (Exception ex)
             {
