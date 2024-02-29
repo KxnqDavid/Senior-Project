@@ -15,13 +15,15 @@
             </TextBox.Effect>
         </TextBox>
         <Button x:Name="DLButton" Content="DOWNLOAD" HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="VidFormat" Content="Video Options" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="AudioFormat" Content="Audio Options" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="VidOptions" Content="Video Options" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="AudioOptions" Content="Audio Options" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top"/>
         <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="150" Margin="50,160,0,0" VerticalAlignment="Top" Width="250" Source="/baby.png" Stretch="Fill"/>
         <ProgressBar HorizontalAlignment="Left" Height="10" Margin="328,340,0,0" VerticalAlignment="Top" Width="100"/>
-        <ComboBox HorizontalAlignment="Left" Margin="580,185,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
-        <ComboBox HorizontalAlignment="Left" Margin="580,275,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="651,185,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox x:Name="AudioFormat" HorizontalAlignment="Left" Margin="580,275,0,0" VerticalAlignment="Top" Width="120"/>
         <MediaElement HorizontalAlignment="Left" Height="100" Margin="436,217,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="ChangeDirectory" Content="Change Directory" HorizontalAlignment="Left" Margin="675,29,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="VidQuality" HorizontalAlignment="Left" Margin="505,185,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
