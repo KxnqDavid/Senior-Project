@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
-using System.Windows.Forms;
+using Microsoft.Windows.Compatibility;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -21,12 +21,12 @@ namespace SeniorProjectGroup4
     {
         public MainWindow()
         {
-            InitializeComponent();
             Console.WriteLine("Hello World!");
             //hello
 
+
         }
-        private void SelectDownloadLocation_Click(object sender, RoutedEventArgs e)
+        private void ChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
