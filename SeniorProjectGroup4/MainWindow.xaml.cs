@@ -21,6 +21,7 @@ namespace SeniorProjectGroup4
         public MainWindow()
         {
             Console.WriteLine("Hello World!");
+            //hello
 
 
         }
