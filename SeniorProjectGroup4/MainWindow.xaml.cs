@@ -23,6 +23,7 @@ namespace SeniorProjectGroup4
         {
             InitializeComponent();
             Console.WriteLine("Hello World!");
+            //hello
 
         }
         private void SelectDownloadLocation_Click(object sender, RoutedEventArgs e)
