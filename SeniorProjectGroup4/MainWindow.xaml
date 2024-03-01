@@ -5,25 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeniorProjectGroup4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
-        <TextBlock x:Name="GUIOutput" HorizontalAlignment="Center" Margin="0,399,0,0" TextWrapping="Wrap" Text="This textblock will display download %, error, and success message" VerticalAlignment="Top" Width="450"/>
-        <TextBlock x:Name="UserPrompt" HorizontalAlignment="Center" Margin="0,70,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here" VerticalAlignment="Top"/>
-        <TextBox x:Name="UserLink" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" TextChanged="UserLink_TextChanged">
+        <TextBlock x:Name="GUIOutput" HorizontalAlignment="Center" Margin="0,335,0,0" TextWrapping="Wrap" Text="This textblock will display download %, error, and success message" VerticalAlignment="Top" Width="400"/>
+        <TextBlock x:Name="UserPrompt" HorizontalAlignment="Center" Margin="0,60,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here" VerticalAlignment="Top"/>
+        <TextBox x:Name="UserLink" HorizontalAlignment="Center" Margin="0,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" TextChanged="UserLink_TextChanged">
             <TextBox.Effect>
                 <DropShadowEffect/>
             </TextBox.Effect>
         </TextBox>
-        <Button x:Name="DLButton" Content="DOWNLOAD" HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="VidOptions" Content="Video Options" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="AudioOptions" Content="Audio Options" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top"/>
-        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="150" Margin="50,160,0,0" VerticalAlignment="Top" Width="250" Source="/baby.png" Stretch="Fill"/>
-        <ProgressBar HorizontalAlignment="Center" Height="10" Margin="0,344,0,0" VerticalAlignment="Top" Width="100"/>
-        <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="651,185,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
-        <ComboBox x:Name="AudioFormat" HorizontalAlignment="Left" Margin="580,275,0,0" VerticalAlignment="Top" Width="120"/>
-        <MediaElement HorizontalAlignment="Left" Height="100" Margin="436,217,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="DLButton" Content="DOWNLOAD" HorizontalAlignment="Center" Margin="0,310,0,0" VerticalAlignment="Top" Background="#FF37FF00" FontWeight="Bold" FontStyle="Italic"/>
+        <Button x:Name="VidOptions" Content="Video Options" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Button x:Name="AudioOptions" Content="Audio Options" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="25,0,0,0" VerticalAlignment="Center" Width="260" Source="/baby.png" Stretch="Fill"/>
+        <ProgressBar HorizontalAlignment="Center" Height="25" Margin="0,356,0,0" VerticalAlignment="Top" Width="400"/>
+        <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="651,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="webm"/>
+            <ComboBoxItem Content="mp4"/>
+            <ComboBoxItem Content="mov"/>
+            <ComboBoxItem Content="m4v"/>
+        </ComboBox>
+        <ComboBox x:Name="AudioFormat" HorizontalAlignment="Left" Margin="598,275,0,0" VerticalAlignment="Top" Width="85">
+            <ComboBoxItem Content="mp3"/>
+            <ComboBoxItem Content="wav"/>
+            <ComboBoxItem Content="flac"/>
+            <ComboBoxItem Content="opus"/>
+        </ComboBox>
+        <MediaElement x:Name="VideoMetadata" HorizontalAlignment="Left" Height="126" Margin="303,152,0,0" VerticalAlignment="Top" Width="200"/>
         <Button x:Name="ChangeDirectory" Content="Change Directory" HorizontalAlignment="Left" Margin="651,20,0,0" VerticalAlignment="Top" Click="ChangeDirectory_Click_1"/>
-        <ComboBox x:Name="VidQuality" HorizontalAlignment="Left" Margin="505,185,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="VidQuality_SelectionChanged"/>
+        <ComboBox x:Name="VidQuality" HorizontalAlignment="Left" Margin="540,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="VidQuality_SelectionChanged">
+            <ComboBoxItem Content="360"/>
+            <ComboBoxItem Content="480"/>
+            <ComboBoxItem Content="720"/>
+            <ComboBoxItem Content="1080"/>
+        </ComboBox>
+        <Button x:Name="LightDarkMode" Content="Light/Dark" HorizontalAlignment="Left" Margin="651,45,0,0" VerticalAlignment="Top" Width="96">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                    <GradientStop Color="#FF737373"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
