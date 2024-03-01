@@ -44,6 +44,9 @@ namespace SeniorProjectGroup4
                 // Get the selected folder
                 userDirectory = dialog.FolderName;
             }
+
+            UserDir.Text = userDirectory;
+
         }
 
         private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,5 +110,14 @@ namespace SeniorProjectGroup4
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
+
+        private void LightDarkMode_Click(object sender, RoutedEventArgs e)
+        {
+            if (backbox.Background == Brushes.Black)
+                backbox.Background = Brushes.White;
+            else
+            backbox.Background = Brushes.Black;
+        }
+
     }
 }

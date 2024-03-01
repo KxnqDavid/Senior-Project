@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SeniorProjectGroup4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize">
-    <Grid>
+    <Grid x:Name="backbox">
         <TextBlock x:Name="GUIOutput" HorizontalAlignment="Center" Margin="0,335,0,0" TextWrapping="Wrap" Text="This textblock will display download %, error, and success message" VerticalAlignment="Top" Width="400"/>
         <TextBlock x:Name="UserPrompt" HorizontalAlignment="Center" Margin="0,60,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here" VerticalAlignment="Top"/>
         <TextBox x:Name="UserLink" HorizontalAlignment="Center" Margin="0,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" TextChanged="UserLink_TextChanged">
@@ -39,7 +39,7 @@
             <ComboBoxItem Content="720"/>
             <ComboBoxItem Content="1080"/>
         </ComboBox>
-        <Button x:Name="LightDarkMode" Content="Light/Dark" HorizontalAlignment="Left" Margin="651,45,0,0" VerticalAlignment="Top" Width="96">
+        <Button x:Name="LightDarkMode" Content="Light/Dark" HorizontalAlignment="Left" Margin="651,45,0,0" VerticalAlignment="Top" Width="96" Click="LightDarkMode_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
                     <GradientStop Color="#FF737373"/>
@@ -47,6 +47,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <TextBlock x:Name="YourDir" HorizontalAlignment="Left" Margin="522,124,0,0" TextWrapping="Wrap" Text="Your Directory:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="UserDir" HorizontalAlignment="Left" Margin="616,124,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
