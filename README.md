@@ -21,7 +21,7 @@
 
 ## Contributing
 
-- KxnqDavid (https://github.com/KxnqDavid)
+- KxnqDavid[https://github.com/KxnqDavid]
 - brandon-xd (https://github.com/brandon-xd)
 - Pb3aNG01 (https://github.com/Pb3aNG01)
 - sydneyxlowe (https://github/sydneyxlowe)
