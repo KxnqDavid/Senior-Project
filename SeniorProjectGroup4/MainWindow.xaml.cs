@@ -113,10 +113,53 @@ namespace SeniorProjectGroup4
 
         private void LightDarkMode_Click(object sender, RoutedEventArgs e)
         {
-            if (backbox.Background == Brushes.Black)
-                backbox.Background = Brushes.White;
+            if (backbox.Background != Brushes.White)
+            {
+                backbox.Style = (Style)FindResource("DefaultGridStyle");
+                foreach (var child in backbox.Children)
+                {
+                    if (child is TextBox textBox)
+                    {
+                        textBox.Style = (Style)FindResource("DefaultTextBoxStyle");
+                    }
+                    else if (child is TextBlock textBlock)
+                    {
+                        textBlock.Style = (Style)FindResource("DefaultTextBlockStyle");
+                    }
+                    else if (child is Button button)
+                    {
+                        button.Style = (Style)FindResource("DefaultButtonStyle");
+                    }
+                    else if (child is ComboBox comboBox)
+                    {
+                        comboBox.Style = (Style)FindResource("DefaultComboBoxStyle");
+                    }
+                }
+            }
             else
-            backbox.Background = Brushes.Black;
+            {
+                backbox.Style = (Style)FindResource("DarkGridStyle");
+                foreach (var child in backbox.Children)
+                {
+                    if (child is TextBox textBox)
+                    {
+                        textBox.Style = (Style)FindResource("DarkTextBoxStyle");
+                    }
+                    else if(child is TextBlock textBlock)
+                    {
+                        textBlock.Style = (Style)FindResource("DarkTextBlockStyle");
+                    }
+                    else if(child is Button button)
+                    {
+                        button.Style = (Style)FindResource("DarkButtonStyle");
+                        
+                    }
+                    else if(child is ComboBox comboBox)
+                    {
+                        comboBox.Style = (Style)FindResource("DarkComboBoxStyle");
+                    }
+                }
+            }
         }
 
     }

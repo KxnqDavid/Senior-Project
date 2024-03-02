@@ -4,6 +4,54 @@
              xmlns:local="clr-namespace:SeniorProjectGroup4"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <Style x:Key="DefaultGridStyle" TargetType="Grid">
+                <Setter Property="Background" Value="White" />
+            </Style>
+            <Style x:Key="DarkGridStyle" TargetType="Grid">
+                <Setter Property="Background" Value="#1F1B24" />
+            </Style>
+
+            <Style x:Key="DefaultTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
+
+            </Style>
+            <Style x:Key="DarkTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Background" Value="#1F1B24" />
+                <Setter Property="Foreground" Value="#a7a7a7" />
+            </Style>
+
+            <Style x:Key="DefaultTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+            <Style x:Key="DarkTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="#a7a7a7" />
+                <Setter Property="Foreground" Value="black" />
+            </Style>
+
+            <Style x:Key="DefaultButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+
+            <Style x:Key="DarkButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#343039" />
+                <Setter Property="Foreground" Value="Transparent" />
+            </Style>
+
+            <Style x:Key="DefaultComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
+
+            </Style>
+            <Style x:Key="DarkComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="Background" Value="#292929" />
+                <Setter Property="Foreground" Value="#a7a7a7" />
+            </Style>
+
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
