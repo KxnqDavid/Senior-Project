@@ -49,7 +49,6 @@
         <TextBlock x:Name="UserDir" HorizontalAlignment="Left" Margin="616,124,0,0" TextWrapping="Wrap" Text="Directory" VerticalAlignment="Top"/>
         <TextBlock x:Name="VideoBlock" HorizontalAlignment="Left" Margin="607,164,0,0" TextWrapping="Wrap" Text="Video Options" VerticalAlignment="Top" RenderTransformOrigin="-0.162,-0.39"/>
         <TextBlock x:Name="AudioBlock" HorizontalAlignment="Left" Margin="602,254,0,0" TextWrapping="Wrap" Text="Audio Options" VerticalAlignment="Top"/>
-        <TextBlock x:Name="test1" HorizontalAlignment="Left" Margin="427,227,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

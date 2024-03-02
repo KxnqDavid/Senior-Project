@@ -80,21 +80,18 @@ namespace SeniorProjectGroup4
         {
             var item = (ComboBoxItem)VidQuality.SelectedValue;
             quality = (string)item.Content;
-            test1.Text = quality;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (ComboBoxItem)VidFormat.SelectedValue;
             format = (string)item.Content;
-            test1.Text = format;
         }
 
         private void AudioFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (ComboBoxItem)AudioFormat.SelectedValue;
             audioFormat = (string)item.Content;
-            test1.Text = audioFormat;
         }
     }
 }
