@@ -15,7 +15,7 @@
             </TextBox.Effect>
         </TextBox>
         <Button x:Name="DLButton" Content="DOWNLOAD" HorizontalAlignment="Center" Margin="0,310,0,0" VerticalAlignment="Top" Background="#FF37FF00" FontWeight="Bold" FontStyle="Italic" Click="DLButton_Click"/>
-        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="25,0,0,0" VerticalAlignment="Center" Width="260" Source="/baby.png" Stretch="Fill"/>
+        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="25,0,0,0" VerticalAlignment="Center" Width="260" Source="/placeholder.png" Stretch="Fill"/>
         <ProgressBar HorizontalAlignment="Center" Height="25" Margin="0,356,0,0" VerticalAlignment="Top" Width="400" ValueChanged="ProgressBar_ValueChanged"/>
         <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="651,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBoxItem Content="webm"/>
