@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="baby.png" />
+    <None Remove="placeholder.png" />
     <None Remove="yt-dlp.exe" />
   </ItemGroup>
 
@@ -28,6 +29,7 @@
 
   <ItemGroup>
     <Resource Include="baby.png" />
+    <Resource Include="placeholder.png" />
   </ItemGroup>
 
 </Project>

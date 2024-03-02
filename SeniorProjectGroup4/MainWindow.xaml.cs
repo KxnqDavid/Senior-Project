@@ -21,6 +21,9 @@ namespace SeniorProjectGroup4
     {
         string userDirectory = "";
         string mediaLink = "";
+        string quality = "";
+        string format = "";
+        string audioFormat = "";
 
         public MainWindow()
         {
@@ -35,13 +38,10 @@ namespace SeniorProjectGroup4
                 Title = "Select a directory to download to"
             };
 
-            // Show open folder dialog box
             bool? result = dialog.ShowDialog();
 
-            // Process open folder dialog box results
             if (result == true)
             {
-                // Get the selected folder
                 userDirectory = dialog.FolderName;
             }
 
@@ -49,67 +49,11 @@ namespace SeniorProjectGroup4
 
         }
 
-        private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void UserLink_TextChanged(object sender, TextChangedEventArgs e)
         {
             mediaLink = UserLink.Text;
         }
-        static void DownloadVideo(string link, string directory, string format)
-        {
-            string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
-            RunYTDLProcess(arguments);
-        }
-
-        static void DownloadAudio(string link, string directory, string format)
-        {
-            string arguments = $"--extract-audio --audio-format {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
-            RunYTDLProcess(arguments);
-        }
-        static void RunYTDLProcess(string arguments)
-        {
-            try
-            {
-                string ytDlpExecutable = "yt-dlp.exe";
-
-                ProcessStartInfo startInfo = new()
-                {
-                    FileName = ytDlpExecutable,
-                    Arguments = arguments,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using Process process = new();
-                process.StartInfo = startInfo;
-
-                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
-
-                process.Start();
-
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-
-                process.WaitForExit();
-
-                Console.WriteLine("Download complete!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
-        }
+      
 
         private void LightDarkMode_Click(object sender, RoutedEventArgs e)
         {
@@ -162,5 +106,32 @@ namespace SeniorProjectGroup4
             }
         }
 
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            
+        }
+
+        private void DLButton_Click(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (ComboBoxItem)VidQuality.SelectedValue;
+            quality = (string)item.Content;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (ComboBoxItem)VidFormat.SelectedValue;
+            format = (string)item.Content;
+        }
+
+        private void AudioFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (ComboBoxItem)AudioFormat.SelectedValue;
+            audioFormat = (string)item.Content;
+        }
     }
 }
