@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SeniorProjectGroup4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize">
-    <Grid x:Name="backbox">
+    <Grid x:Name="backbox" Style= "{StaticResource DefaultGridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="71*"/>
             <ColumnDefinition Width="329*"/>
