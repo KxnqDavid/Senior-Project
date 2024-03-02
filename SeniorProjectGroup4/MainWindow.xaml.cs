@@ -63,53 +63,7 @@ namespace SeniorProjectGroup4
         {
             mediaLink = UserLink.Text;
         }
-        static void DownloadVideo(string link, string directory, string format)
-        {
-            string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
-            RunYTDLProcess(arguments);
-        }
-
-        static void DownloadAudio(string link, string directory, string format)
-        {
-            string arguments = $"--extract-audio --audio-format {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
-            RunYTDLProcess(arguments);
-        }
-        static void RunYTDLProcess(string arguments)
-        {
-            try
-            {
-                string ytDlpExecutable = "yt-dlp.exe";
-
-                ProcessStartInfo startInfo = new()
-                {
-                    FileName = ytDlpExecutable,
-                    Arguments = arguments,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using Process process = new();
-                process.StartInfo = startInfo;
-
-                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
-
-                process.Start();
-
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-
-                process.WaitForExit();
-
-                Console.WriteLine("Download complete!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
-        }
+      
 
         private void LightDarkMode_Click(object sender, RoutedEventArgs e)
         {
