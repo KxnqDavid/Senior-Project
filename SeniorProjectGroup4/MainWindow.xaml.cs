@@ -21,9 +21,9 @@ namespace SeniorProjectGroup4
     {
         string userDirectory = "";
         string mediaLink = "";
-        string qualityValue = "";
-        string videoFormat = "";
-        string audioValue = "";
+        string quality = "";
+        string format = "";
+        string audioFormat = "";
 
         public MainWindow()
         {
@@ -52,11 +52,6 @@ namespace SeniorProjectGroup4
 
         }
 
-        private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            qualityValue = VidQuality.SelectedValue.ToString();
-        }
-
         private void UserLink_TextChanged(object sender, TextChangedEventArgs e)
         {
             mediaLink = UserLink.Text;
@@ -71,11 +66,6 @@ namespace SeniorProjectGroup4
             backbox.Background = Brushes.Black;
         }
 
-        private void VidOptions_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             
@@ -86,19 +76,25 @@ namespace SeniorProjectGroup4
           
         }
 
-        private void VidFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            videoFormat = VidFormat.SelectedValue.ToString();
-        }
-
-        private void AudioFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            audioValue = AudioFormat.SelectedValue.ToString();
+            var item = (ComboBoxItem)VidQuality.SelectedValue;
+            quality = (string)item.Content;
+            test1.Text = quality;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var item = (ComboBoxItem)VidFormat.SelectedValue;
+            format = (string)item.Content;
+            test1.Text = format;
+        }
 
+        private void AudioFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (ComboBoxItem)AudioFormat.SelectedValue;
+            audioFormat = (string)item.Content;
+            test1.Text = audioFormat;
         }
     }
 }
