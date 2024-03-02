@@ -21,6 +21,9 @@ namespace SeniorProjectGroup4
     {
         string userDirectory = "";
         string mediaLink = "";
+        string qualityValue = "";
+        string videoFormat = "";
+        string audioValue = "";
 
         public MainWindow()
         {
@@ -51,12 +54,7 @@ namespace SeniorProjectGroup4
 
         private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            qualityValue = VidQuality.SelectedValue.ToString();
         }
 
         private void UserLink_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,5 +71,29 @@ namespace SeniorProjectGroup4
             backbox.Background = Brushes.Black;
         }
 
+        private void VidOptions_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            
+        }
+
+        private void DLButton_Click(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void VidFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            videoFormat = VidFormat.SelectedValue.ToString();
+        }
+
+        private void AudioFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            audioValue = AudioFormat.SelectedValue.ToString();
+        }
     }
 }
