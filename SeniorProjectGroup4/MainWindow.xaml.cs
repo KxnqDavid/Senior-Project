@@ -95,5 +95,10 @@ namespace SeniorProjectGroup4
         {
             audioValue = AudioFormat.SelectedValue.ToString();
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
