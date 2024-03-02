@@ -37,8 +37,8 @@
             </Style>
 
             <Style x:Key="DarkButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#343039" />
-                <Setter Property="Foreground" Value="Transparent" />
+                <Setter Property="Background" Value="#a7a7a7" />
+                <Setter Property="Foreground" Value="Black" />
             </Style>
 
             <Style x:Key="DefaultComboBoxStyle" TargetType="ComboBox">
