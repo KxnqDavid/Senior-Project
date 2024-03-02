@@ -111,11 +111,6 @@ namespace SeniorProjectGroup4
             
         }
 
-        private void DLButton_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
-
         private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (ComboBoxItem)VidQuality.SelectedValue;
@@ -133,5 +128,77 @@ namespace SeniorProjectGroup4
             var item = (ComboBoxItem)AudioFormat.SelectedValue;
             audioFormat = (string)item.Content;
         }
+    }
+}
+
+private void DLButton_Click(object sender, RoutedEventArgs e)
+{
+    if (string.IsNullOrWhiteSpace(mediaLink) || string.IsNullOrWhiteSpace(userDirectory))
+    {
+        MessageBox.Show("Please enter a valid YouTube URL and select a download directory.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        return;
+    }
+
+    string selectedFormat = VidFormat.SelectedItem?.ToString();
+    string selectedQuality = VidQuality.SelectedItem?.ToString();
+
+    if (string.IsNullOrWhiteSpace(selectedFormat) || string.IsNullOrWhiteSpace(selectedQuality))
+    {
+        MessageBox.Show("Please select a video format and quality.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        return;
+    }
+
+    try
+    {
+        DownloadVideo(mediaLink, userDirectory, selectedFormat);
+        MessageBox.Show("Download initiated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+}
+
+static void DownloadVideo(string link, string directory, string format)
+{
+    string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
+    RunYTDLProcess(arguments);
+}
+
+static void RunYTDLProcess(string arguments)
+{
+    try
+    {
+        string ytDlpExecutable = "yt-dlp.exe";
+
+        ProcessStartInfo startInfo = new()
+        {
+            FileName = ytDlpExecutable,
+            Arguments = arguments,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using Process process = new();
+        process.StartInfo = startInfo;
+
+        process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
+        process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
+
+        process.Start();
+
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+
+        process.WaitForExit();
+
+        Console.WriteLine("Download complete!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred: {ex.Message}");
     }
 }
