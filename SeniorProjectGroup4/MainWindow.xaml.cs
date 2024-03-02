@@ -38,13 +38,10 @@ namespace SeniorProjectGroup4
                 Title = "Select a directory to download to"
             };
 
-            // Show open folder dialog box
             bool? result = dialog.ShowDialog();
 
-            // Process open folder dialog box results
             if (result == true)
             {
-                // Get the selected folder
                 userDirectory = dialog.FolderName;
             }
 
