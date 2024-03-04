@@ -42,6 +42,7 @@
         <TextBlock x:Name="VideoBlock" HorizontalAlignment="Left" Margin="277,164,0,0" TextWrapping="Wrap" Text="Video Options" VerticalAlignment="Top" RenderTransformOrigin="-0.162,-0.39" Grid.Column="2"/>
         <TextBlock x:Name="AudioBlock" HorizontalAlignment="Left" Margin="277,231,0,0" TextWrapping="Wrap" Text="Audio Options" VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox x:Name="UserLink" HorizontalAlignment="Left" Margin="42,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="353" TextChanged="UserLink_TextChanged_1" Background="#FFE6E6E6" Grid.ColumnSpan="3" Height="20"/>
+        <Button Grid.Column="2" Content="Button" HorizontalAlignment="Left" Margin="358,356,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Window>

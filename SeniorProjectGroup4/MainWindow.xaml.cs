@@ -29,6 +29,10 @@ namespace SeniorProjectGroup4
         {
             InitializeComponent();
         }
+        private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            mediaLink = UserLink.Text;
+        }
 
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
         {
@@ -46,7 +50,6 @@ namespace SeniorProjectGroup4
             }
 
             UserDir.Text = userDirectory;
-
         }
 
         private void LightDarkMode_Click(object sender, RoutedEventArgs e)
@@ -83,16 +86,16 @@ namespace SeniorProjectGroup4
                     {
                         textBox.Style = (Style)FindResource("DarkTextBoxStyle");
                     }
-                    else if(child is TextBlock textBlock)
+                    else if (child is TextBlock textBlock)
                     {
                         textBlock.Style = (Style)FindResource("DarkTextBlockStyle");
                     }
-                    else if(child is Button button)
+                    else if (child is Button button)
                     {
                         button.Style = (Style)FindResource("DarkButtonStyle");
-                        
+
                     }
-                    else if(child is ComboBox comboBox)
+                    else if (child is ComboBox comboBox)
                     {
                         comboBox.Style = (Style)FindResource("DarkComboBoxStyle");
                     }
@@ -131,10 +134,7 @@ namespace SeniorProjectGroup4
                 return;
             }
 
-            string selectedFormat = VidFormat.SelectedItem?.ToString();
-            string selectedQuality = VidQuality.SelectedItem?.ToString();
-
-            if (string.IsNullOrWhiteSpace(selectedFormat) || string.IsNullOrWhiteSpace(selectedQuality))
+            if (string.IsNullOrWhiteSpace(format) || string.IsNullOrWhiteSpace(quality))
             {
                 MessageBox.Show("Please select a video format and quality.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -142,7 +142,7 @@ namespace SeniorProjectGroup4
 
             try
             {
-                DownloadVideo(mediaLink, userDirectory, selectedFormat);
+                downloadVideo("https://www.youtube.com/shorts/u68Z7Elnb6E", "D:\\", "best");
                 MessageBox.Show("Download initiated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -150,12 +150,11 @@ namespace SeniorProjectGroup4
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        static void DownloadVideo(string link, string directory, string format)
+        static void downloadVideo(string link, string directory, string format)
         {
             string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
             RunYTDLProcess(arguments);
         }
-
         static void RunYTDLProcess(string arguments)
         {
             try
@@ -185,8 +184,6 @@ namespace SeniorProjectGroup4
                     process.BeginErrorReadLine();
 
                     process.WaitForExit();
-
-                    Console.WriteLine("Download complete!");
                 }
             }
             catch (Exception ex)
@@ -195,9 +192,9 @@ namespace SeniorProjectGroup4
             }
         }
 
-        private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mediaLink = UserLink.Text;
+            downloadVideo("https://www.youtube.com/shorts/u68Z7Elnb6E", "D:\\", "best");
         }
     }
 }
