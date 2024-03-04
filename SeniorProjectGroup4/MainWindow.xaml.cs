@@ -102,7 +102,7 @@ namespace SeniorProjectGroup4
 
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            
+
         }
 
         private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,7 +162,7 @@ namespace SeniorProjectGroup4
             {
                 string ytDlpExecutable = "yt-dlp.exe";
 
-                ProcessStartInfo startInfo = new()
+                ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = ytDlpExecutable,
                     Arguments = arguments,
@@ -172,20 +172,22 @@ namespace SeniorProjectGroup4
                     CreateNoWindow = true
                 };
 
-                using Process process = new();
-                process.StartInfo = startInfo;
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
 
-                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                    process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                    process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
 
-                process.Start();
+                    process.Start();
 
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
-                process.WaitForExit();
+                    process.WaitForExit();
 
-                Console.WriteLine("Download complete!");
+                    Console.WriteLine("Download complete!");
+                }
             }
             catch (Exception ex)
             {
