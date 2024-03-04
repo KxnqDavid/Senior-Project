@@ -21,7 +21,7 @@
         <Button x:Name="DLButton" Content="DOWNLOAD" HorizontalAlignment="Left" Margin="220,310,0,0" VerticalAlignment="Top" Background="#FF37FF00" FontWeight="Bold" FontStyle="Italic" Click="DLButton_Click" Grid.Column="1"/>
         <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="25,0,0,0" VerticalAlignment="Center" Width="260" Source="/placeholder.png" Stretch="Fill" Grid.ColumnSpan="2"/>
         <ProgressBar HorizontalAlignment="Left" Height="25" Margin="58,356,0,0" VerticalAlignment="Top" Width="400" ValueChanged="ProgressBar_ValueChanged" Grid.Column="1"/>
-        <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="509,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1">
+        <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="509,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="VidFormat_SelectionChanged" Grid.Column="1">
             <ComboBoxItem Content="webm"/>
             <ComboBoxItem Content="mp4"/>
             <ComboBoxItem Content="mov"/>

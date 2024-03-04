@@ -117,7 +117,7 @@ namespace SeniorProjectGroup4
             quality = (string)item.Content;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void VidFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (ComboBoxItem)VidFormat.SelectedValue;
             format = (string)item.Content;
