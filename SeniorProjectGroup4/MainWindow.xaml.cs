@@ -49,12 +49,6 @@ namespace SeniorProjectGroup4
 
         }
 
-        private void UserLink_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            mediaLink = UserLink.Text;
-        }
-      
-
         private void LightDarkMode_Click(object sender, RoutedEventArgs e)
         {
             if (backbox.Background != Brushes.White)
@@ -197,6 +191,11 @@ namespace SeniorProjectGroup4
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
+        }
+
+        private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            mediaLink = UserLink.Text;
         }
     }
 }
