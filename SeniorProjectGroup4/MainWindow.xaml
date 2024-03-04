@@ -15,7 +15,7 @@
         <TextBlock x:Name="UserPrompt" HorizontalAlignment="Left" Margin="161,60,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here" VerticalAlignment="Top" Grid.Column="1"/>
         <Button x:Name="DLButton" Content="Download" HorizontalAlignment="Left" Margin="220,310,0,0" VerticalAlignment="Top" Background="#FFE5E5E5" Click="DLButton_Click" Grid.Column="1"/>
         <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="25,0,0,0" VerticalAlignment="Center" Width="260" Source="/placeholder.png" Stretch="Fill" Grid.ColumnSpan="2"/>
-        <ProgressBar HorizontalAlignment="Left" Height="25" Margin="58,356,0,0" VerticalAlignment="Top" Width="400" ValueChanged="ProgressBar_ValueChanged" Grid.Column="1"/>
+        <ProgressBar HorizontalAlignment="Left" Height="25" Margin="58,356,0,0" VerticalAlignment="Top" Width="400" ValueChanged="ProgressBar_ValueChanged" Grid.Column="1" Foreground="Black"/>
         <ComboBox x:Name="VidFormat" HorizontalAlignment="Left" Margin="509,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="VidFormat_SelectionChanged" Grid.Column="1">
             <ComboBoxItem Content="webm"/>
             <ComboBoxItem Content="mp4"/>
@@ -41,7 +41,7 @@
         <TextBlock x:Name="UserDir" HorizontalAlignment="Left" Margin="474,124,0,0" TextWrapping="Wrap" Text="Directory" VerticalAlignment="Top" Grid.Column="1"/>
         <TextBlock x:Name="VideoBlock" HorizontalAlignment="Left" Margin="465,164,0,0" TextWrapping="Wrap" Text="Video Options" VerticalAlignment="Top" RenderTransformOrigin="-0.162,-0.39" Grid.Column="1"/>
         <TextBlock x:Name="AudioBlock" HorizontalAlignment="Left" Margin="460,254,0,0" TextWrapping="Wrap" Text="Audio Options" VerticalAlignment="Top" Grid.Column="1"/>
-        <TextBox x:Name="UserLink" HorizontalAlignment="Left" Margin="189,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" TextChanged="UserLink_TextChanged_1"/>
+        <TextBox x:Name="UserLink" HorizontalAlignment="Left" Margin="189,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" TextChanged="UserLink_TextChanged_1" Background="#FFE6E6E6"/>
 
     </Grid>
 </Window>
