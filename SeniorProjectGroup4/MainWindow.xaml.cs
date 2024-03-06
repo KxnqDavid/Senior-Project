@@ -1,15 +1,6 @@
-﻿using System.Text;
-using System.Windows;
-using Microsoft.Win32;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System;
 using System.Diagnostics;
 
 namespace SeniorProjectGroup4
@@ -25,9 +16,12 @@ namespace SeniorProjectGroup4
         string format = "";
         string audioFormat = "";
 
+        private ProgressBar downloadBar;
+
         public MainWindow()
         {
             InitializeComponent();
+            downloadBar = DownloadBar;
         }
         private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
         {
@@ -126,7 +120,7 @@ namespace SeniorProjectGroup4
             audioFormat = (string)item.Content;
         }
 
-        private void DLButton_Click(object sender, RoutedEventArgs e)
+        private async void DLButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(mediaLink) || string.IsNullOrWhiteSpace(userDirectory))
             {
@@ -142,7 +136,7 @@ namespace SeniorProjectGroup4
 
             try
             {
-                downloadVideo("https://www.youtube.com/shorts/u68Z7Elnb6E", "D:\\", "best");
+                await downloadVideo(mediaLink, userDirectory, "best", DownloadBar);
                 MessageBox.Show("Download initiated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -150,38 +144,64 @@ namespace SeniorProjectGroup4
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        static void downloadVideo(string link, string directory, string format)
+
+        private async Task downloadVideo(string link, string directory, string format, ProgressBar progressBar)
         {
-            string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
-            RunYTDLProcess(arguments);
+            try
+            {
+                string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
+                await RunYTDLProcess(arguments, progressBar);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
-        static void RunYTDLProcess(string arguments)
+
+        private async Task RunYTDLProcess(string arguments, ProgressBar progressBar)
         {
             try
             {
                 string ytDlpExecutable = "yt-dlp.exe";
 
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = ytDlpExecutable,
-                    Arguments = arguments,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
                 using (Process process = new Process())
                 {
-                    process.StartInfo = startInfo;
+                    process.StartInfo.FileName = ytDlpExecutable;
+                    process.StartInfo.Arguments = arguments;
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.CreateNoWindow = true;
 
-                    process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                    TaskCompletionSource<bool> outputReadTaskCompletionSource = new TaskCompletionSource<bool>();
+
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (e.Data == null)
+                        {
+                            outputReadTaskCompletionSource.TrySetResult(true);
+                        }
+                        else if (e.Data.Contains("ETA"))
+                        {
+                            string[] tokens = e.Data.Split(' ');
+                            if (tokens.Length >= 8 && double.TryParse(tokens[6].Trim('%'), out double progress))
+                            {
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    progressBar.Value = progress;
+                                });
+                            }
+                        }
+                    };
+
                     process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
 
                     process.Start();
 
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
+
+                    await outputReadTaskCompletionSource.Task;
 
                     process.WaitForExit();
                 }
@@ -192,9 +212,9 @@ namespace SeniorProjectGroup4
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            downloadVideo("https://www.youtube.com/shorts/u68Z7Elnb6E", "D:\\", "best");
-        }
+
+
+
+
     }
 }
