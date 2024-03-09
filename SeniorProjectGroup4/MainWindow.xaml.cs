@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace SeniorProjectGroup4
 {
@@ -21,8 +22,33 @@ namespace SeniorProjectGroup4
         public MainWindow()
         {
             InitializeComponent();
+            //load up previous user settings here?
+            ReadSettings();
             downloadBar = DownloadBar;
         }
+
+        private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location (light/dark theme not added yet)
+        {
+            try
+            {
+                var userSetting = ConfigurationManager.AppSettings;
+                if (userSetting == null)
+                {
+                    return;
+                }
+                else
+                {
+                    userDirectory = userSetting["UserDirectory"];
+                    UserDir.Text = userDirectory;
+                }
+            }
+            catch(ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading user config");
+            }
+
+        }
+
         private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             mediaLink = UserLink.Text;
