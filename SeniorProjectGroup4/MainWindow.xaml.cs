@@ -16,7 +16,7 @@ namespace SeniorProjectGroup4
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        string userDirectory = "";
+        public string userDirectory { get; set; }
         string mediaLink = "";
         string _format;
         public string format { get; set; }
@@ -63,42 +63,37 @@ namespace SeniorProjectGroup4
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(configFile);
-                XmlNode themeNode = doc.SelectSingleNode("//Theme");
-                if (themeNode != null)
+                XmlNode configNode = doc.SelectSingleNode("//Theme");
+                if (configNode != null)
                 {
-                    LightDarkMode_Change(themeNode.InnerText);
+                    LightDarkMode_Change(configNode.InnerText);
                 }
 
-                themeNode = doc.SelectSingleNode("//Quality");
-                if (themeNode != null) 
+                configNode = doc.SelectSingleNode("//Quality");
+                if (configNode != null) 
                 {
-                    this.quality = themeNode.InnerText;
+                    this.quality = configNode.InnerText;
                     VidQuality.SelectedIndex = VidQuality_Index(quality);
                 }
 
-                themeNode = doc.SelectSingleNode("//Video");
-                if (themeNode != null)
+                configNode = doc.SelectSingleNode("//Video");
+                if (configNode != null)
                 {
-                    this.format = themeNode.InnerText;
+                    this.format = configNode.InnerText;
                     VidFormat.SelectedIndex = VidFormat_Index(format);
                 }
 
-                themeNode = doc.SelectSingleNode("//Audio");
-                if (themeNode != null)
+                configNode = doc.SelectSingleNode("//Audio");
+                if (configNode != null)
                 {
-                    this.audioFormat = themeNode.InnerText;
+                    this.audioFormat = configNode.InnerText;
                     AudioFormat.SelectedIndex = AudioFormat_Index(audioFormat);
                 }
 
-                // i did not mess with this since i wasn't in the last call -sydney
-                var userSetting = ConfigurationManager.AppSettings;
-                if (userSetting == null)
+                configNode = doc.SelectSingleNode("//UserDirectory");
+                if (configNode != null)
                 {
-                    return;
-                }
-                else
-                {
-                    userDirectory = userSetting["UserDirectory"];
+                    this.userDirectory = configNode.InnerText;
                     UserDir.Text = userDirectory;
                 }
                 
@@ -117,6 +112,7 @@ namespace SeniorProjectGroup4
 
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
         {
+            string configFile = GetConfigFilePath();
             Microsoft.Win32.OpenFolderDialog dialog = new()
             {
                 Multiselect = false,
@@ -131,6 +127,21 @@ namespace SeniorProjectGroup4
             }
 
             UserDir.Text = userDirectory;
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode configNode = doc.SelectSingleNode("//UserDirectory");
+                if (configNode != null)
+                {
+                    configNode.InnerText = userDirectory;
+                    doc.Save(configFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing config file: " + ex.Message);
+            }
         }
 
         // applies style settings based on theme value
@@ -206,10 +217,10 @@ namespace SeniorProjectGroup4
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(configFile);
-                XmlNode themeNode = doc.SelectSingleNode("//Theme");
-                if (themeNode != null)
+                XmlNode configNode = doc.SelectSingleNode("//Theme");
+                if (configNode != null)
                 {
-                    themeNode.InnerText = theme;
+                    configNode.InnerText = theme;
                     doc.Save(configFile);
                 }
             }
@@ -240,10 +251,10 @@ namespace SeniorProjectGroup4
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(configFile);
-                XmlNode themeNode = doc.SelectSingleNode("//Quality");
-                if (themeNode != null)
+                XmlNode configNode = doc.SelectSingleNode("//Quality");
+                if (configNode != null)
                 {
-                    themeNode.InnerText = quality;
+                    configNode.InnerText = quality;
                     doc.Save(configFile);
                 }
             }
@@ -273,10 +284,10 @@ namespace SeniorProjectGroup4
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(configFile);
-                XmlNode themeNode = doc.SelectSingleNode("//Video");
-                if (themeNode != null)
+                XmlNode configNode = doc.SelectSingleNode("//Video");
+                if (configNode != null)
                 {
-                    themeNode.InnerText = format;
+                    configNode.InnerText = format;
                     doc.Save(configFile);
                 }
             }
@@ -306,10 +317,10 @@ namespace SeniorProjectGroup4
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(configFile);
-                XmlNode themeNode = doc.SelectSingleNode("//Audio");
-                if (themeNode != null)
+                XmlNode configNode = doc.SelectSingleNode("//Audio");
+                if (configNode != null)
                 {
-                    themeNode.InnerText = audioFormat;
+                    configNode.InnerText = audioFormat;
                     doc.Save(configFile);
                 }
             }

@@ -3,4 +3,5 @@
   <Quality>720</Quality>
   <Video>mp4</Video>
   <Audio>mp3</Audio>
+  <UserDirectory></UserDirectory>
 </Configuration>
