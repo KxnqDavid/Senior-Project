@@ -201,21 +201,16 @@ namespace SeniorProjectGroup4
 
         private void UpdateProgress(string data)
         {
-            // Log the output for debugging
+            
             Console.WriteLine($"Output: {data}");
 
-            // Example: Check for lines containing "download" and percentage
             if (!string.IsNullOrEmpty(data) && data.Contains("[download]") && data.Contains("%"))
             {
-                // Extract percentage information and update ProgressBar
-                // Example: [download]  81.2% of  204.11MiB at    3.46MiB/s ETA 00:11
                 int indexOfPercentage = data.IndexOf('%');
                 if (indexOfPercentage != -1)
                 {
-                    // Extract the percentage and convert it to a double
                     if (double.TryParse(data.Substring(indexOfPercentage - 4, 4).Trim(), out double progress))
                     {
-                        // Update UI elements on the main thread
                         Dispatcher.Invoke(() =>
                         {
                             downloadBar.Value = progress / 100.0;
