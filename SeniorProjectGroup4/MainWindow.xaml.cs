@@ -100,11 +100,6 @@ namespace SeniorProjectGroup4
             }
         }
 
-        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
         private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (ComboBoxItem)VidQuality.SelectedValue;
@@ -140,7 +135,6 @@ namespace SeniorProjectGroup4
             try
             {
                 await downloadVideo(mediaLink, userDirectory, "best", DownloadBar);
-                MessageBox.Show("Download initiated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -182,6 +176,7 @@ namespace SeniorProjectGroup4
                     process.OutputDataReceived += (s, args) => UpdateProgress(args.Data);
                     process.ErrorDataReceived += (s, args) => UpdateProgress(args.Data);
 
+                    MessageBox.Show("Download initiated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     process.Start();
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
@@ -201,7 +196,7 @@ namespace SeniorProjectGroup4
 
         private void UpdateProgress(string data)
         {
-            
+
             Console.WriteLine($"Output: {data}");
 
             if (!string.IsNullOrEmpty(data) && data.Contains("[download]") && data.Contains("%"))
@@ -220,13 +215,11 @@ namespace SeniorProjectGroup4
             }
         }
 
-
         private void HandleProcessExit()
         {
             process.WaitForExit();
             process.Close();
         }
-
 
 
     }
