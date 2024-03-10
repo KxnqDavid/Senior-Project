@@ -13,6 +13,7 @@
             <ColumnDefinition Width="188*"/>
             <ColumnDefinition Width="470*"/>
         </Grid.ColumnDefinitions>
+
         <TextBlock x:Name="UserPrompt" HorizontalAlignment="Left" Margin="17,34,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here:" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Button x:Name="DLButton" Content="Download" HorizontalAlignment="Left" Margin="70,55,0,0" VerticalAlignment="Top" Background="#FFE5E5E5" Click="DLButton_Click" Grid.Column="3" Height="20" Width="75"/>
         <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="25,0,0,0" VerticalAlignment="Center" Width="260" Source="/placeholder.png" Stretch="Fill" Grid.ColumnSpan="3"/>

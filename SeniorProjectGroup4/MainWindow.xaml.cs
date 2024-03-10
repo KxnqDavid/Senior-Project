@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
 using System;
+using System.Configuration;
 
 namespace SeniorProjectGroup4
 {
@@ -20,12 +21,44 @@ namespace SeniorProjectGroup4
         private Process process;
 
         private ProgressBar downloadBar;
+        
 
         public MainWindow()
         {
             InitializeComponent();
             downloadBar = DownloadBar;
+
+
+            // ReadSettings needs to read the config file and we still need the program to 
+            // automatically store the most recently selected options so that they will be read when opening program
+            ReadSettings();
+
         }
+
+        private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location (light/dark theme not added yet)
+        {
+            try
+            {
+                var userSetting = ConfigurationManager.AppSettings;
+                if (userSetting == null)
+                {
+                    return;
+                }
+                else
+                {
+                    userDirectory = userSetting["UserDirectory"];
+                    UserDir.Text = userDirectory;
+                }
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading user config");
+            }
+
+        }
+
+        
+
         private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
         {
             mediaLink = UserLink.Text;
@@ -219,6 +252,11 @@ namespace SeniorProjectGroup4
         {
             process.WaitForExit();
             process.Close();
+        }
+
+        private void togglebutton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
 
 
