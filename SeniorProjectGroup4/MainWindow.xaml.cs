@@ -168,6 +168,10 @@ namespace SeniorProjectGroup4
                     {
                         comboBox.Style = (Style)FindResource("DefaultComboBoxStyle");
                     }
+                    else if (child is ProgressBar progressBar)
+                    {
+                        progressBar.Style = (Style)FindResource("DefaultMedia");
+                    }
                 }
             }
 
@@ -192,6 +196,10 @@ namespace SeniorProjectGroup4
                     else if (child is ComboBox comboBox)
                     {
                         comboBox.Style = (Style)FindResource("DarkComboBoxStyle");
+                    }
+                    else if(child is ProgressBar progressBar)
+                    {
+                        progressBar.Style = (Style)FindResource("DarkMedia");
                     }
                 }
             }
