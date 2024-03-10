@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
+using System;
 
 namespace SeniorProjectGroup4
 {
@@ -15,6 +16,8 @@ namespace SeniorProjectGroup4
         string quality = "";
         string format = "";
         string audioFormat = "";
+
+        private Process process;
 
         private ProgressBar downloadBar;
 
@@ -164,7 +167,7 @@ namespace SeniorProjectGroup4
             {
                 string ytDlpExecutable = "yt-dlp.exe";
 
-                using (Process process = new Process())
+                using (process = new Process())
                 {
                     process.StartInfo.FileName = ytDlpExecutable;
                     process.StartInfo.Arguments = arguments;
@@ -175,31 +178,15 @@ namespace SeniorProjectGroup4
 
                     TaskCompletionSource<bool> outputReadTaskCompletionSource = new TaskCompletionSource<bool>();
 
-                    process.OutputDataReceived += (sender, e) =>
-                    {
-                        if (e.Data == null)
-                        {
-                            outputReadTaskCompletionSource.TrySetResult(true);
-                        }
-                        else if (e.Data.Contains("ETA"))
-                        {
-                            string[] tokens = e.Data.Split(' ');
-                            if (tokens.Length >= 8 && double.TryParse(tokens[6].Trim('%'), out double progress))
-                            {
-                                Application.Current.Dispatcher.Invoke(() =>
-                                {
-                                    progressBar.Value = progress;
-                                });
-                            }
-                        }
-                    };
-
-                    process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                    // Event handlers for capturing progress
+                    process.OutputDataReceived += (s, args) => UpdateProgress(args.Data);
+                    process.ErrorDataReceived += (s, args) => UpdateProgress(args.Data);
 
                     process.Start();
-
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
+
+                    process.Exited += (s, args) => HandleProcessExit();
 
                     await outputReadTaskCompletionSource.Task;
 
@@ -212,7 +199,38 @@ namespace SeniorProjectGroup4
             }
         }
 
+        private void UpdateProgress(string data)
+        {
+            // Log the output for debugging
+            Console.WriteLine($"Output: {data}");
 
+            // Example: Check for lines containing "download" and percentage
+            if (!string.IsNullOrEmpty(data) && data.Contains("[download]") && data.Contains("%"))
+            {
+                // Extract percentage information and update ProgressBar
+                // Example: [download]  81.2% of  204.11MiB at    3.46MiB/s ETA 00:11
+                int indexOfPercentage = data.IndexOf('%');
+                if (indexOfPercentage != -1)
+                {
+                    // Extract the percentage and convert it to a double
+                    if (double.TryParse(data.Substring(indexOfPercentage - 4, 4).Trim(), out double progress))
+                    {
+                        // Update UI elements on the main thread
+                        Dispatcher.Invoke(() =>
+                        {
+                            downloadBar.Value = progress / 100.0;
+                        });
+                    }
+                }
+            }
+        }
+
+
+        private void HandleProcessExit()
+        {
+            process.WaitForExit();
+            process.Close();
+        }
 
 
 
