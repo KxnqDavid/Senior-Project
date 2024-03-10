@@ -4,24 +4,37 @@ using System.Windows.Media;
 using System.Diagnostics;
 using System;
 using System.Configuration;
+using System.Xml;
+using System.IO;
+using System.ComponentModel;
+using System.Windows.Controls.Primitives;
 
 namespace SeniorProjectGroup4
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         string userDirectory = "";
         string mediaLink = "";
-        string quality = "";
-        string format = "";
-        string audioFormat = "";
+        string _format;
+        public string format { get; set; }
+        public string audioFormat { get; set; }
 
         private Process process;
 
         private ProgressBar downloadBar;
-        
+
+        public string quality { get; set; }
+
+        // Implement PropertyChanged event
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public MainWindow()
         {
@@ -32,13 +45,52 @@ namespace SeniorProjectGroup4
             // ReadSettings needs to read the config file and we still need the program to 
             // automatically store the most recently selected options so that they will be read when opening program
             ReadSettings();
+            DataContext = this;
 
+        }
+        private string GetConfigFilePath() 
+        {
+            // Get the directory of the executable or the current working directory
+            string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            // Combine the directory path with the config file name
+            return Path.Combine(appDirectory, "..", "..", "..", "config.xml");
         }
 
         private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location (light/dark theme not added yet)
         {
+            string configFile = GetConfigFilePath();
             try
             {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode themeNode = doc.SelectSingleNode("//Theme");
+                if (themeNode != null)
+                {
+                    LightDarkMode_Change(themeNode.InnerText);
+                }
+
+                themeNode = doc.SelectSingleNode("//Quality");
+                if (themeNode != null) 
+                {
+                    this.quality = themeNode.InnerText;
+                    VidQuality.SelectedIndex = VidQuality_Index(quality);
+                }
+
+                themeNode = doc.SelectSingleNode("//Video");
+                if (themeNode != null)
+                {
+                    this.format = themeNode.InnerText;
+                    VidFormat.SelectedIndex = VidFormat_Index(format);
+                }
+
+                themeNode = doc.SelectSingleNode("//Audio");
+                if (themeNode != null)
+                {
+                    this.audioFormat = themeNode.InnerText;
+                    AudioFormat.SelectedIndex = AudioFormat_Index(audioFormat);
+                }
+
+                // i did not mess with this since i wasn't in the last call -sydney
                 var userSetting = ConfigurationManager.AppSettings;
                 if (userSetting == null)
                 {
@@ -49,6 +101,7 @@ namespace SeniorProjectGroup4
                     userDirectory = userSetting["UserDirectory"];
                     UserDir.Text = userDirectory;
                 }
+                
             }
             catch (ConfigurationErrorsException)
             {
@@ -56,8 +109,6 @@ namespace SeniorProjectGroup4
             }
 
         }
-
-        
 
         private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
         {
@@ -82,9 +133,10 @@ namespace SeniorProjectGroup4
             UserDir.Text = userDirectory;
         }
 
-        private void LightDarkMode_Click(object sender, RoutedEventArgs e)
+        // applies style settings based on theme value
+        private void LightDarkMode_Change(string pref)
         {
-            if (backbox.Background != Brushes.White)
+            if (pref == "Light")
             {
                 backbox.Style = (Style)FindResource("DefaultGridStyle");
                 foreach (var child in backbox.Children)
@@ -107,6 +159,7 @@ namespace SeniorProjectGroup4
                     }
                 }
             }
+
             else
             {
                 backbox.Style = (Style)FindResource("DarkGridStyle");
@@ -133,22 +186,138 @@ namespace SeniorProjectGroup4
             }
         }
 
+        // now saves new theme value upon click
+        private void LightDarkMode_Click(object sender, RoutedEventArgs e)
+        {
+            string theme;
+            string configFile = GetConfigFilePath();
+            if (backbox.Background != Brushes.White)
+            {
+                theme = "Light";
+            }
+            else
+            {
+                theme = "Dark";
+            }
+
+            LightDarkMode_Change(theme);
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode themeNode = doc.SelectSingleNode("//Theme");
+                if (themeNode != null)
+                {
+                    themeNode.InnerText = theme;
+                    doc.Save(configFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing config file: " + ex.Message);
+            }
+        }
+
+        private int VidQuality_Index(string value)
+        {
+            if(value == "360")
+                return 0;
+            else if(value == "480")
+                return 1;
+            else if(value == "720")
+                return 2;
+            else
+                return 3;
+        }
         private void VidQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            string configFile = GetConfigFilePath();
             var item = (ComboBoxItem)VidQuality.SelectedValue;
             quality = (string)item.Content;
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode themeNode = doc.SelectSingleNode("//Quality");
+                if (themeNode != null)
+                {
+                    themeNode.InnerText = quality;
+                    doc.Save(configFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing config file: " + ex.Message);
+            }
         }
 
+        private int VidFormat_Index(string value)
+        {
+            if (value == "webm")
+                return 0;
+            else if(value == "mp4")
+                return 1;
+            else if(value == "mov")
+                return 2;
+            else
+                return 3;
+        }
         private void VidFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            string configFile = GetConfigFilePath();
             var item = (ComboBoxItem)VidFormat.SelectedValue;
             format = (string)item.Content;
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode themeNode = doc.SelectSingleNode("//Video");
+                if (themeNode != null)
+                {
+                    themeNode.InnerText = format;
+                    doc.Save(configFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing config file: " + ex.Message);
+            }
         }
 
+        private int AudioFormat_Index(string value)
+        {
+            if (value == "mp3")
+                return 0;
+            else if( value == "wav")
+                return 1;
+            else if(value == "flac")
+                return 2;
+            else
+                return 3;
+        }
         private void AudioFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            string configFile = GetConfigFilePath();
             var item = (ComboBoxItem)AudioFormat.SelectedValue;
             audioFormat = (string)item.Content;
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode themeNode = doc.SelectSingleNode("//Audio");
+                if (themeNode != null)
+                {
+                    themeNode.InnerText = audioFormat;
+                    doc.Save(configFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing config file: " + ex.Message);
+            }
+
         }
 
         private async void DLButton_Click(object sender, RoutedEventArgs e)
