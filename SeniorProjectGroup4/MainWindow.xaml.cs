@@ -17,8 +17,8 @@ namespace SeniorProjectGroup4
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public string userDirectory { get; set; }
-        string mediaLink = "";
-        string _format;
+        public string mediaLink { get; set; }
+   
         public string format { get; set; }
         public string audioFormat { get; set; }
 
@@ -40,7 +40,8 @@ namespace SeniorProjectGroup4
         {
             InitializeComponent();
             downloadBar = DownloadBar;
-
+            mediaLink = "";
+            UserLink.TextChanged += UserLink_TextChanged_1;
 
             // ReadSettings needs to read the config file and we still need the program to 
             // automatically store the most recently selected options so that they will be read when opening program
@@ -107,7 +108,11 @@ namespace SeniorProjectGroup4
 
         private void UserLink_TextChanged_1(object sender, TextChangedEventArgs e)
         {
-            mediaLink = UserLink.Text;
+            var textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                this.mediaLink = textBox.Text;
+            }
         }
 
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
