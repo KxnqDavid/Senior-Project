@@ -49,12 +49,31 @@ namespace SeniorProjectGroup4
             DataContext = this;
 
         }
-        private string GetConfigFilePath() 
+        private string GetConfigFilePath()
         {
             // Get the directory of the executable or the current working directory
             string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             // Combine the directory path with the config file name
-            return Path.Combine(appDirectory, "..", "..", "..", "config.xml");
+            string configFilePath = Path.Combine(appDirectory, "..", "..", "..", "config.xml");
+
+            // Check if the config file exists, if not, create it
+            if (!File.Exists(configFilePath))
+            {
+                using (StreamWriter sw = new StreamWriter(configFilePath))
+                {
+                    // Write XML content to the file
+                    sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+                    sw.WriteLine("<Configuration>");
+                    sw.WriteLine("  <Theme>Dark</Theme>");
+                    sw.WriteLine("  <Quality>720</Quality>");
+                    sw.WriteLine("  <Video>mp4</Video>");
+                    sw.WriteLine("  <Audio>mp3</Audio>");
+                    sw.WriteLine("  <UserDirectory></UserDirectory>");
+                    sw.WriteLine("</Configuration>");
+                }
+            }
+
+            return configFilePath;
         }
 
         private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location (light/dark theme not added yet)
