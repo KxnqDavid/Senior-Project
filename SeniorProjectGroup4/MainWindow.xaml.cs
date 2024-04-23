@@ -386,6 +386,7 @@ namespace SeniorProjectGroup4
 
             try
             {
+                DownloadBar.Value = 0;
                 await downloadVideo(mediaLink, userDirectory, "best", DownloadBar);
             }
             catch (Exception ex)

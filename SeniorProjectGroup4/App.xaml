@@ -40,7 +40,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TextBox">
-                            <TextBox Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,3,1" Foreground="#79829b" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,1" Foreground="#79829b" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center">
 
                             </TextBox>
 
@@ -58,7 +58,7 @@
             </Style>
 
             <!-- Progress Bar -->
-            <SolidColorBrush x:Key="ProgressBar.Progress" Color="#13271f"/>
+            <SolidColorBrush x:Key="ProgressBar.Progress" Color="#4b6f76"/>
             <SolidColorBrush x:Key="ProgressBar.Background" Color="#20262d"/>
             <SolidColorBrush x:Key="ProgressBar.Border" Color="#272c33"/>
             <Style x:Key="DarkMedia" TargetType="{x:Type ProgressBar}">
@@ -93,7 +93,7 @@
                                 <Rectangle x:Name="PART_Track"/>
                                 <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
                                     <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}"/>
-                                    <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5">
+                                    <Rectangle x:Name="Animation" Fill="{StaticResource ProgressBar.Progress}" RenderTransformOrigin="0.5,0.5">
                                         <Rectangle.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform/>
