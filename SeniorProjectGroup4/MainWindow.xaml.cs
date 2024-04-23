@@ -76,6 +76,13 @@ namespace SeniorProjectGroup4
             return configFilePath;
         }
 
+        private string GetExeFilePath()
+        {
+            string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            return Path.Combine(appDirectory, "..", "..", "..", "yt-dlp.exe");
+        }
+
         private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location (light/dark theme not added yet)
         {
             string configFile = GetConfigFilePath();
@@ -404,7 +411,7 @@ namespace SeniorProjectGroup4
         {
             try
             {
-                string ytDlpExecutable = "yt-dlp.exe";
+                string ytDlpExecutable = GetExeFilePath();
 
                 using (process = new Process())
                 {
