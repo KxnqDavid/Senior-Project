@@ -387,7 +387,7 @@ namespace SeniorProjectGroup4
             try
             {
                 DownloadBar.Value = 0;
-                await downloadVideo(mediaLink, userDirectory, "best", DownloadBar);
+                await downloadVideo(mediaLink, userDirectory, format, DownloadBar);
             }
             catch (Exception ex)
             {
@@ -399,8 +399,12 @@ namespace SeniorProjectGroup4
         {
             try
             {
-                string arguments = $"-f {format} -o \"{directory}\\%(title)s.%(ext)s\" {link}";
+                Trace.WriteLine($"Downloading video from {link} to {directory} in {format} format at {quality} quality.");
+
+                // TODO: Add audio format options (bestaudio[ext={audioQuality}, include m4a as a audio format option (possibly as default), add command for backup ba+bv/b 
+                string arguments = $"-f \"bestvideo[height<={quality}]+bestaudio/best[ext={format}]\" -o \"{directory}\\%(title)s.%(ext)s\" {link}";
                 await RunYTDLProcess(arguments, progressBar);
+                
             }
             catch (Exception ex)
             {
@@ -412,6 +416,8 @@ namespace SeniorProjectGroup4
         {
             try
             {
+
+                // reminder that we may need to update this path once we create a final release/executable for the application
                 string ytDlpExecutable = GetExeFilePath();
 
                 using (process = new Process())
@@ -429,6 +435,7 @@ namespace SeniorProjectGroup4
                     process.OutputDataReceived += (s, args) => UpdateProgress(args.Data);
                     process.ErrorDataReceived += (s, args) => UpdateProgress(args.Data);
 
+                    // TODO: instead of MessageBox, we should add an area maybe at the bottom of the application window that displays alerts (less annoying this way)
                     MessageBox.Show("Download initiated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     process.Start();
                     process.BeginOutputReadLine();
@@ -443,14 +450,14 @@ namespace SeniorProjectGroup4
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                Trace.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
         private void UpdateProgress(string data)
         {
-
-            Console.WriteLine($"Output: {data}");
+            //TODO: add text for the progress/download %
+            Trace.WriteLine($"Output: {data}");
 
             if (!string.IsNullOrEmpty(data) && data.Contains("[download]") && data.Contains("%"))
             {
