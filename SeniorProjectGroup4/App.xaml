@@ -21,10 +21,10 @@
 
             </Style>
             <Style x:Key="DarkTextBlockStyle" TargetType="TextBlock">
-                <Setter Property="Background" Value="#0d1117" />
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Foreground" Value="#a7a7a7" />
             </Style>
-
+            
             <!--TextBox-->
             <Style x:Key="DefaultTextBoxStyle" TargetType="TextBox">
                 <Setter Property="Background" Value="#FFE6E6E6" />

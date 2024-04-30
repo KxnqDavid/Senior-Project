@@ -16,7 +16,7 @@
 
         <TextBlock x:Name="UserPrompt" Panel.ZIndex="0" HorizontalAlignment="Left" Margin="17,34,0,0" TextWrapping="Wrap" Text="Paste the link of a video/playlist here:" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Button x:Name="DLButton" Panel.ZIndex="1" Content="Download" HorizontalAlignment="Left" Margin="70,55,0,0" VerticalAlignment="Top" Click="DLButton_Click" Grid.Column="3" Height="20" Width="75"/>
-        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="207" VerticalAlignment="Center" Width="267" Source="/placeholder.png" Stretch="Uniform" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Image x:Name="PreviewThumbnail" HorizontalAlignment="Left" Height="130" Margin="0,174,0,0" VerticalAlignment="Top" Width="260" Source="/placeholder.png" Stretch="Fill" Grid.ColumnSpan="2" Grid.Column="1"/>
         <ProgressBar x:Name="DownloadBar" HorizontalAlignment="Left" Height="25" Margin="58,356,0,0" VerticalAlignment="Top" Width="400" Grid.Column="2" Foreground="Red" Grid.ColumnSpan="2" Maximum="1"/>
         <ComboBox x:Name="VidFormat" Cursor="Hand" HorizontalAlignment="Left" Margin="321,185,0,0" VerticalAlignment="Top" Width="85" SelectionChanged="VidFormat_SelectionChanged" Grid.Column="3">
             <ComboBoxItem Content="webm"/>
@@ -39,10 +39,12 @@
             <ComboBoxItem Content="1080"/>
         </ComboBox>
         <Button x:Name="LightDarkMode" Content="Light/Dark" HorizontalAlignment="Left" Margin="267,60,0,0" VerticalAlignment="Top" Width="97" Click="LightDarkMode_Click" Grid.Column="3"/>
-        <TextBlock x:Name="YourDir" HorizontalAlignment="Left" Margin="21,80,0,0" TextWrapping="Wrap" Text="Your Directory:" VerticalAlignment="Top" Grid.Column="1"/>
-        <TextBlock x:Name="UserDir" HorizontalAlignment="Left" Margin="115,80,0,0" TextWrapping="Wrap" Text="Directory" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="333" Grid.Column="1"/>
+        <TextBlock x:Name="YourDir" HorizontalAlignment="Left" Margin="21,88,0,0" TextWrapping="Wrap" Text="Your Directory:" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBlock x:Name="UserDir" HorizontalAlignment="Left" Margin="14,88,0,0" TextWrapping="Wrap" Text="Directory" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="333" Grid.Column="2"/>
+        <TextBlock x:Name="OutputName" HorizontalAlignment="Left" Margin="21,112,0,0" TextWrapping="Wrap" Text="Output File Name:" VerticalAlignment="Top" Grid.Column="1" Width="132" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="OutputFile" HorizontalAlignment="Left" Margin="13,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="242" Grid.Column="2" TextChanged="ChangeFileName_TextChanged" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Height="20px" />
         <TextBlock x:Name="VideoBlock" HorizontalAlignment="Left" Margin="277,164,0,0" TextWrapping="Wrap" Text="Video Options" VerticalAlignment="Top" RenderTransformOrigin="-0.162,-0.39" Grid.Column="3"/>
-        <TextBlock x:Name="AudioBlock" HorizontalAlignment="Left" Margin="277,231,0,0" TextWrapping="Wrap" Text="Audio Options" VerticalAlignment="Top" Grid.Column="3"/>
+        <TextBlock x:Name="AudioBlock" HorizontalAlignment="Left" Margin="273,231,0,0" TextWrapping="Wrap" Text="Audio Options" VerticalAlignment="Top" Grid.Column="3"/>
         <TextBox x:Name="UserLink" HorizontalAlignment="Left" Margin="17,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="353" TextChanged="UserLink_TextChanged_1" Grid.ColumnSpan="3" Height="20" Grid.Column="1"/>
     </Grid>
 </Window>

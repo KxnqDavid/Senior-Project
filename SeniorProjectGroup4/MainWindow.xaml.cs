@@ -8,6 +8,8 @@ using System.Xml;
 using System.IO;
 using System.ComponentModel;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Net.Mail;
 
 namespace SeniorProjectGroup4
 {
@@ -28,6 +30,9 @@ namespace SeniorProjectGroup4
 
         public string quality { get; set; }
 
+        public string fileName { get; set; }
+        public string defaultFileMessage { get; set; }
+
         // Implement PropertyChanged event
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,10 +46,10 @@ namespace SeniorProjectGroup4
             InitializeComponent();
             downloadBar = DownloadBar;
             mediaLink = "";
+            defaultFileMessage = "<-- Change Default File Name -->";
             UserLink.TextChanged += UserLink_TextChanged_1;
-
-            // ReadSettings needs to read the config file and we still need the program to 
-            // automatically store the most recently selected options so that they will be read when opening program
+            FocusManager.SetFocusedElement(this, OutputFile);
+            FocusManager.SetFocusedElement(this, this);
             ReadSettings();
             DataContext = this;
 
@@ -69,6 +74,7 @@ namespace SeniorProjectGroup4
                     sw.WriteLine("  <Video>mp4</Video>");
                     sw.WriteLine("  <Audio>mp3</Audio>");
                     sw.WriteLine("  <UserDirectory></UserDirectory>");
+                    sw.WriteLine("  <FileName></FileName>");
                     sw.WriteLine("</Configuration>");
                 }
             }
@@ -83,7 +89,7 @@ namespace SeniorProjectGroup4
             return Path.Combine(appDirectory, "..", "..", "..", "yt-dlp.exe");
         }
 
-        private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location (light/dark theme not added yet)
+        private void ReadSettings() // an attempt to save user settings such as directory so when app runs it will save the directory location
         {
             string configFile = GetConfigFilePath();
             try
@@ -141,6 +147,25 @@ namespace SeniorProjectGroup4
             }
         }
 
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == defaultFileMessage)
+            {
+                textBox.Text = string.Empty;
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.FontSize = 11;
+                textBox.Text = defaultFileMessage;
+            }
+        }
+
         private void ChangeDirectory_Click_1(object sender, RoutedEventArgs e)
         {
             string configFile = GetConfigFilePath();
@@ -166,6 +191,32 @@ namespace SeniorProjectGroup4
                 if (configNode != null)
                 {
                     configNode.InnerText = userDirectory;
+                    doc.Save(configFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing config file: " + ex.Message);
+            }
+        }
+
+        private void ChangeFileName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string configFile = GetConfigFilePath();
+            var textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                this.fileName = textBox.Text;
+            }
+            
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(configFile);
+                XmlNode configNode = doc.SelectSingleNode("//FileName");
+                if (configNode != null)
+                {
+                    configNode.InnerText = fileName;
                     doc.Save(configFile);
                 }
             }
@@ -397,12 +448,25 @@ namespace SeniorProjectGroup4
 
         private async Task downloadVideo(string link, string directory, string format, ProgressBar progressBar)
         {
+            if(this.fileName == defaultFileMessage)
+            {
+                this.fileName = "%(title)s";
+            }
+            else
+            {
+                if (!verifyFileName(this.fileName))
+                {
+                    MessageBox.Show($"Invalid file name format.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            
             try
             {
                 Trace.WriteLine($"Downloading video from {link} to {directory} in {format} format at {quality} quality.");
 
                 // TODO: Add audio format options (bestaudio[ext={audioQuality}, include m4a as a audio format option (possibly as default), add command for backup ba+bv/b 
-                string arguments = $"-f \"bestvideo[height<={quality}]+bestaudio/best[ext={format}]\" -o \"{directory}\\%(title)s.%(ext)s\" {link}";
+                string arguments = $"-f \"bestvideo[height<={quality}]+bestaudio/best[ext={format}]\" -o \"{directory}\\{fileName}.%(ext)s\" {link}";
                 await RunYTDLProcess(arguments, progressBar);
                 
             }
@@ -485,7 +549,18 @@ namespace SeniorProjectGroup4
         {
 
         }
-
-
+    
+        private bool verifyFileName(string nameCheck)
+        {
+            char[] illegalChars = { '#', '%', '&', '{', '}', '/', '<', '>', '*', '?', '$', '!', '"', ':', '@', '+', '`', '|', '=', '\\', '\''};
+            if(illegalChars.Any(c => nameCheck.Contains(c)))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
