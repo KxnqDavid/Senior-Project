@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Net.Mail;
+using System.CodeDom.Compiler;
 
 namespace SeniorProjectGroup4
 {
@@ -464,6 +465,15 @@ namespace SeniorProjectGroup4
             try
             {
                 Trace.WriteLine($"Downloading video from {link} to {directory} in {format} format at {quality} quality.");
+
+                // Download thumbnail first
+                RunYTDLProcess( $"{link}  --write-thumbnail --skip-download -o \"thumbnail.%(ext)s\" ", progressBar);
+
+                string myfile = "./thumbnail.webp";
+                FileInfo f = new FileInfo(myfile);
+                f.MoveTo(Path.ChangeExtension(myfile, ".Jpeg"));
+
+                File.Move("thumbnail.webp", "thumbnail.jpeg");
 
                 // TODO: Add audio format options (bestaudio[ext={audioQuality}, include m4a as a audio format option (possibly as default), add command for backup ba+bv/b 
                 string arguments = $"-f \"bestvideo[height<={quality}]+bestaudio/best[ext={format}]\" -o \"{directory}\\{fileName}.%(ext)s\" {link}";
