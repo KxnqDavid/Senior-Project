@@ -74,7 +74,6 @@ namespace SeniorProjectGroup4
                     sw.WriteLine("  <Video>mp4</Video>");
                     sw.WriteLine("  <Audio>mp3</Audio>");
                     sw.WriteLine("  <UserDirectory></UserDirectory>");
-                    sw.WriteLine("  <FileName></FileName>");
                     sw.WriteLine("</Configuration>");
                 }
             }
@@ -207,22 +206,6 @@ namespace SeniorProjectGroup4
             if (textBox != null)
             {
                 this.fileName = textBox.Text;
-            }
-            
-            try
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(configFile);
-                XmlNode configNode = doc.SelectSingleNode("//FileName");
-                if (configNode != null)
-                {
-                    configNode.InnerText = fileName;
-                    doc.Save(configFile);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error writing config file: " + ex.Message);
             }
         }
 
